@@ -67,7 +67,9 @@ const saveData = async () => {
         <label>Asal Sekolah</label>
         <input type="text" v-model="asalSekolah" placeholder="Asal Sekolah">
         </div>
-    <button @click="submit">Submit</button>
+        <div>
+            <input type="submit">
+        </div>
     </form>
 
 </template>
