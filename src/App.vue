@@ -5,6 +5,10 @@
 <template>
   <form>
     <div>
+      <label>Id</label>
+      <input type="number" placeholder="Id">
+    </div>
+    <div>
       <label>Nama Lengkap</label>
       <input type="text" placeholder="Nama Lengkap">
     </div>
