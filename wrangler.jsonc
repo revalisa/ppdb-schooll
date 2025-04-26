@@ -10,6 +10,13 @@
 	"assets": {
 		"not_found_handling": "single-page-application"
 	},
+	"d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "ppdbSchool-db",
+      "database_id": "e7fab00f-55d3-43df-974d-60b79b529637"     
+    }
+  ],
 	"observability": {
 		"enabled": true
 	}
