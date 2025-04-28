@@ -6,9 +6,10 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"name": "ppdb-schooll",
 	"compatibility_date": "2025-04-26",
-	"main": "server/index.ts",
+	"main": "./server/api/index.ts",
 	"assets": {
-		"not_found_handling": "single-page-application"
+		"not_found_handling": "single-page-application",
+		"binding": "ASSETS"
 	},
 	"d1_databases": [
     {
