@@ -12,24 +12,25 @@ const alamat = ref ('')
 const noTelepon = ref ('')
 const asalSekolah = ref ('')
 
-const saveData = async () => {
+
+    const saveData = async () => {
     const newStudent = JSON.stringify({
         namaLengkap: namaLengkap.value,
         tempatLahir: tempatLahir.value,
-        tanggalLahir: Date.parse(tanggalLahir.value)/1000,
+        tanggalLahir: Math.floor(new Date(tanggalLahir.value).getTime() / 1000), // Konversi ke timestamp
+        // Pastikan tanggalLahir adalah timestamp dalam detik
         jenisKelamin: jenisKelamin.value,
         alamat: alamat.value,
         noTelepon: noTelepon.value,
         asalSekolah: asalSekolah.value
-    })
-    
-    const response = await fetch('/api/addStudent',{
-        method: 'POST',
-        body: 'newStudent',
+    });
+
+    const response = await fetch('/api/students', {
+        method:'POST',
+        body: newStudent,
     })
 
     const data = await response.json()
-
     router.push('/')
 }
 
@@ -46,14 +47,11 @@ const saveData = async () => {
         </div>
         <div>
         <label>Tanggal Lahir</label>
-        <input type="date" v-model="tanggalLahir" placeholder="Tanggal Lahir">
+        <input type="datetime-local" v-model="tanggalLahir" placeholder="Tanggal Lahir">
         </div>
         <div>
         <label>Jenis Kelamin</label>
-        <select v-model="jenisKelamin">
-            <option value="Laki-laki">Laki-laki</option>
-            <option value="Perempuan">Perempuan</option>
-        </select>
+        <input type="text" v-model="jenisKelamin" placeholder="Jenis Kelamin">
         </div>
         <div>
         <label>Alamat</label>
