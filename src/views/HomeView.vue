@@ -17,7 +17,7 @@ interface Student {
 const students = ref<Student[]>([])
 
 const fetchStudents = async () => {
-  const response = await fetch('/api/addStudent')
+  const response = await fetch('/api/students')
   const data = await response.json()
   students.value = data
 }
