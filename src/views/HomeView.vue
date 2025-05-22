@@ -43,6 +43,9 @@ onMounted(() => {
           <div>{{ student.alamat }}</div>
           <div>{{ student.noTelepon }}</div>
           <div>{{ student.asalSekolah }}</div>
+             <div>
+            <RouterLink :to="`/student/${student.id}`">Edit</RouterLink>
+          </div>
         </li>
       </ul>
     </div>
