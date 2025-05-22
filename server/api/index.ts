@@ -13,9 +13,8 @@ export default {
         } else if (request.method == 'POST') {
             const newId = crypto.randomUUID()
             const input = await request.json<any>()
-            const query = `INSERT INTO students (id,namaLengkap,tempatLahir,tanggalLahir,jenisKelamin,alamat,noTelpon,asalSekolah) 
-            values ("${newId}","${input.namaLengkap}","${input.tempatLahir}",${input.tanggalLahir},"${input.jenisKelamin}","${input.alamat}","${input.noTelpon}","${input.asalSekolah}")`;
-            const newStudent= await env.DB.exec(query);
+            const query = `INSERT INTO students (namaLengkap,tempatLahir,tanggalLahir,jenisKelamin,alamat,noTelepon,asalSekolah) values ("${input.namaLengkap}","${input.tempatLahir}",${input.tanggalLahir},"${input.jenisKelamin}","${input.alamat}","${input.noTelepon}","${input.asalSekolah}")`;
+            const newStudent= await env. DB.exec(query);
             return Response.json(newStudent); 
         }
      } 
