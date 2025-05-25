@@ -17,8 +17,7 @@ const asalSekolah = ref ('')
     const newStudent = JSON.stringify({
         namaLengkap: namaLengkap.value,
         tempatLahir: tempatLahir.value,
-        tanggalLahir: Math.floor(new Date(tanggalLahir.value).getTime() / 1000), // Konversi ke timestamp
-        // Pastikan tanggalLahir adalah timestamp dalam detik
+        tanggalLahir: Date.parse(tanggalLahir.value)/1000,
         jenisKelamin: jenisKelamin.value,
         alamat: alamat.value,
         noTelepon: noTelepon.value,
