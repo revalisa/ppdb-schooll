@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { onMounted, ref } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
 const router = useRouter();
+
+const route = useRoute()
+const id = route.params.id
 
 const namaLengkap = ref ('')
 const tempatLahir = ref ('')
@@ -14,25 +17,39 @@ const asalSekolah = ref ('')
 
 
     const saveData = async () => {
-    const newStudent = JSON.stringify({
-        namaLengkap: namaLengkap.value,
-        tempatLahir: tempatLahir.value,
-        tanggalLahir: Math.floor(new Date(tanggalLahir.value).getTime() / 1000), // Konversi ke timestamp
-        // Pastikan tanggalLahir adalah timestamp dalam detik
-        jenisKelamin: jenisKelamin.value,
-        alamat: alamat.value,
-        noTelepon: noTelepon.value,
-        asalSekolah: asalSekolah.value
+        const student = JSON.stringify({
+            namaLengkap: namaLengkap.value,
+            tempatLahir: tempatLahir.value,
+            tanggalLahir: Date.parse(tanggalLahir.value)/1000,
+            jenisKelamin: jenisKelamin.value,
+            alamat: alamat.value,
+            noTelepon: noTelepon.value,
+            asalSekolah: asalSekolah.value
     });
 
-    const response = await fetch('/api/students', {
-        method:'POST',
-        body: newStudent,
+    const response = await fetch('/api/students/${id}', {
+        method:'PUT',
+        body: student,
     })
 
     const data = await response.json()
+
     router.push('/')
 }
+
+onMounted(() => {
+    fetch(`/api/students/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            namaLengkap.value = data.namaLengkap
+            tempatLahir.value = data.tempatLahir
+            tanggalLahir.value = new Date(data.tanggalLahir * 1000).toISOString().slice(0, 16)
+            jenisKelamin.value = data.jenisKelamin
+            alamat.value = data.alamat
+            noTelepon.value = data.noTelepon
+            asalSekolah.value = data.asalSekolah
+        })
+})
 
 </script>
 <template>
