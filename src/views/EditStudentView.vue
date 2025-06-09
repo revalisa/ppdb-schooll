@@ -53,38 +53,40 @@ onMounted(() => {
 
 </script>
 <template>
-    <form @submit.prevent="saveData">
-        <div>
-        <label>Nama Lengkap</label>
-        <input type="text" v-model="namaLengkap" placeholder="Nama Lengkap">
-        </div>
-        <div>
-        <label> Tempat Lahir</label>
-        <input type="text" v-model="tempatLahir" placeholder="Tempat Lahir">
-        </div>
-        <div>
-        <label>Tanggal Lahir</label>
-        <input type="datetime-local" v-model="tanggalLahir" placeholder="Tanggal Lahir">
-        </div>
-        <div>
-        <label>Jenis Kelamin</label>
-        <input type="text" v-model="jenisKelamin" placeholder="Jenis Kelamin">
-        </div>
-        <div>
-        <label>Alamat</label>
-        <input type="text" v-model="alamat" placeholder="Alamat">
-        </div>
-        <div>
-        <label>No. Telepon</label>
-        <input type="text" v-model="noTelepon" placeholder="No. Telepon">
-        </div>  
-        <div>
-        <label>Asal Sekolah</label>
-        <input type="text" v-model="asalSekolah" placeholder="Asal Sekolah">
-        </div>
-        <div class="mt-3">
-                <Button type="submit">Update</Button>
-        </div>
-    </form>
-
+      <div class="container px-4 py-6 mx-auto">
+        <h1 class="text-lg sm:text-2xl">Buat Event Baru</h1>
+        <form @submit.prevent="saveData">
+            <div class="w-full">
+                <label>Nama Lengkap</label>
+                <input type="text" v-model="namaLengkap" class="border">
+            </div>
+            <div>
+                <label>Tempat Lahir</label>
+                <input type="text" v-model="tempatLahir" class="border">
+            </div>
+            <div>
+                <label>Tanggal Lahir</label>
+                <input type="datetime-local" v-model="tanggalLahir" class="border">
+            </div>
+            <div>
+                <label>Jenis Kelamin</label>
+                <input type="text" v-model="jenisKelamin" class="border">
+            </div>
+            <div>
+                <label>Alamat</label>
+                <input type="text" v-model="alamat" class="border">
+            </div>
+            <div>
+                <label>No Telepon</label>
+                <input type="text" v-model="noTelepon" class="border">
+            </div>
+            <div>
+                <label> Asal Sekolah </label>
+                <input type="text" v-model="asalSekolah" class="border">
+            </div>
+            <div class="mt-3">
+                <input type="submit" class="rounded-full text-white bg-sky-500 py-2 px-6 hover:bg-sky-800 hover:cursor-pointer">
+            </div>
+        </form>
+    </div>
 </template>
