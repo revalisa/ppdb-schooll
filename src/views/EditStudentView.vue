@@ -82,8 +82,8 @@ onMounted(() => {
         <label>Asal Sekolah</label>
         <input type="text" v-model="asalSekolah" placeholder="Asal Sekolah">
         </div>
-        <div>
-            <input type="submit">
+        <div class="mt-3">
+                <Button type="submit">Update</Button>
         </div>
     </form>
 
