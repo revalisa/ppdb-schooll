@@ -26,7 +26,7 @@ app.get('/api/students/:id', async (c) => {
     return c.json(results[0])
 })
 
-app.put('api/students/:id', async (c) => {
+app.put('/api/students/:id', async (c) => {
     const studentId = c.req.param('id')
 
     const input = await c.req.json<any>()
@@ -36,15 +36,15 @@ app.put('api/students/:id', async (c) => {
     return c.json(student)
 })
 
-app.delete('api/students/:id', async (c) => {
-    const studentId = c.req.param('id')
+app.delete('/api/students/:id', async (c) => {
+  const studentId = c.req.param('id')
 
-    const query = 'DELETE FROM students WHERE id = "${studentId}"'
-    const student = await c.env.DB.exec(query)
+  const query = `DELETE FROM students WHERE id = "${studentId}"`
+  const student = await c.env.DB.exec(query)
 
-    return c.json(student)
-    })
+  return c.json(student)
+})
 
-
+app.get('*', (c) => c.env.ASSETS.fetch(c.req.raw))
 
 export default app;
