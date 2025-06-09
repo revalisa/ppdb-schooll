@@ -4,13 +4,13 @@ import { ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
 
 interface Student {
-  id          : number
+  id          : string
   namaLengkap : string
   tempatLahir : string
-  tanggalLahir: number
+  tanggalLahir: string
   jenisKelamin: string
   alamat      : string
-  noTelepon   : number
+  noTelepon   : string
   asalSekolah : string
 }
 
@@ -25,6 +25,15 @@ const fetchStudents = async () => {
 onMounted(() => {
   fetchStudents()
 })
+
+const removeStudent = async (id: string) => {
+  const response = await fetch(`/api/students/${id}`, {
+    method: 'DELETE',
+  })
+  if (response.ok) {
+    fetchStudents()
+  }
+}
 
 </script>
 <template>
@@ -43,10 +52,13 @@ onMounted(() => {
           <div>{{ student.alamat }}</div>
           <div>{{ student.noTelepon }}</div>
           <div>{{ student.asalSekolah }}</div>
-             <div>
+          <div>
             <RouterLink :to="`/student/${student.id}`">Edit</RouterLink>
           </div>
-        </li>
+          <div>
+            <button @click="removeStudent(student.id)">Hapus</button>
+          </div>
+          </li>
       </ul>
     </div>
   </main>
