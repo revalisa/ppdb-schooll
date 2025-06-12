@@ -54,7 +54,7 @@ onMounted(() => {
 </script>
 <template>
       <div class="container px-4 py-6 mx-auto">
-        <h1 class="text-lg sm:text-2xl">Buat Event Baru</h1>
+        <h1 class="text-lg sm:text-2xl">Daftar Siswa Baru</h1>
         <form @submit.prevent="saveData">
             <div class="w-full">
                 <label>Nama Lengkap</label>
