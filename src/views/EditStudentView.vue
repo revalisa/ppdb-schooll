@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+
 
 const router = useRouter();
 
@@ -53,39 +56,39 @@ onMounted(() => {
 
 </script>
 <template>
-      <div class="container px-4 py-6 mx-auto">
-        <h1 class="text-lg sm:text-2xl">Daftar Siswa Baru</h1>
+      <div class="container px-4 py-6 mx-auto w-lg">
+        <h1 class="text-lg sm:text-2xl text-center">Daftar Siswa Baru</h1>
         <form @submit.prevent="saveData">
             <div class="w-full">
                 <label>Nama Lengkap</label>
-                <input type="text" v-model="namaLengkap" class="border">
+                <Input type="text" v-model="namaLengkap" />
             </div>
             <div>
                 <label>Tempat Lahir</label>
-                <input type="text" v-model="tempatLahir" class="border">
+                <Input type="text" v-model="tempatLahir" />
             </div>
             <div>
                 <label>Tanggal Lahir</label>
-                <input type="datetime-local" v-model="tanggalLahir" class="border">
+                <Input type="datetime-local" v-model="tanggalLahir" />
             </div>
             <div>
                 <label>Jenis Kelamin</label>
-                <input type="text" v-model="jenisKelamin" class="border">
+                <Input type="text" v-model="jenisKelamin" />
             </div>
             <div>
                 <label>Alamat</label>
-                <input type="text" v-model="alamat" class="border">
+                <Input type="text" v-model="alamat" />
             </div>
             <div>
                 <label>No Telepon</label>
-                <input type="text" v-model="noTelepon" class="border">
+                <Input type="text" v-model="noTelepon" />
             </div>
             <div>
                 <label> Asal Sekolah </label>
-                <input type="text" v-model="asalSekolah" class="border">
+                <Input type="text" v-model="asalSekolah" />
             </div>
             <div class="mt-3">
-                <input type="submit" class="rounded-full text-white bg-sky-500 py-2 px-6 hover:bg-sky-800 hover:cursor-pointer">
+               <Button type="submit">Simpan</Button>
             </div>
         </form>
     </div>
