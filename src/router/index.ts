@@ -14,6 +14,11 @@ const router = createRouter({
       name: 'addStudent',
       component: () => import('../views/AddStudentView.vue'),
     },
+    {
+      path: '/pendaftar',
+      name: 'pendaftar',
+      component: () => import('../views/PendaftarListView.vue'),
+    },
      {
       path: '/student/:id',
       name: 'editStudent',
