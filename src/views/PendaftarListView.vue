@@ -55,8 +55,27 @@ const removeStudent = async (id: string) => {
 </script>
 
 <template>
+ <div class="flex min-h-screen bg-gray-100">
+    <aside class="w-64 bg-white border-r shadow-sm p-4">
+      <div class="text-xl font-semibold text-blue-700 mb-6">Admin PPDB</div>
+      <nav class="space-y-2 text-sm text-gray-700">
+        <RouterLink to="/" class="flex items-center space-x-2 hover:text-blue-600">
+          <span>📊</span><span>Dashboard</span>
+        </RouterLink>
+        <RouterLink to="/pendaftar"class="flex items-center space-x-2 hover:text-blue-600">
+          <span>📝</span><span>Data Pendaftar</span>
+        </RouterLink>
+        <RouterLink to="/student"class="flex items-center space-x-2 hover:text-blue-600">
+          <span>📂</span><span>Tambahkan Siswa</span>
+        </RouterLink>
+       <RouterLink to="/about" class="flex items-center space-x-2 hover:text-blue-600">
+          <span>📣</span><span>Pengumuman</span>
+        </RouterLink>
+      </nav>
+    </aside>
+
   <main class="p-6">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6">📋 Data Pendaftar</h1>
+    <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">📋 Data Pendaftar</h1>
 
     <!-- Filter & Search -->
     <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-3">
@@ -71,10 +90,9 @@ const removeStudent = async (id: string) => {
         v-model="filterStatus"
         class="border border-gray-300 rounded px-3 py-2 text-sm"
       >
-        <option value="all">Semua Status</option>
-        <option value="diterima">Diterima</option>
-        <option value="menunggu">Menunggu</option>
-        <option value="ditolak">Ditolak</option>
+        <option value="all">Semua JK</option>
+        <option value="laki-laki">laki-laki</option>
+        <option value="perempuan">Perempuan</option>
       </select>
     </div>
 
@@ -152,4 +170,5 @@ const removeStudent = async (id: string) => {
       </button>
     </div>
   </main>
+</div>
 </template>
