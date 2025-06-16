@@ -19,11 +19,9 @@
         </ul>
        </div>
     </nav>
-    <main class="min-h-screen bg-gray-50">
-      <div class="max-w-4xl mx-auto px-8 py-10 bg-white mt-6 shadow rounded">
+      <div class="bg-white rounded shadow p-8 gap-10 items-center">
         <h2 class="text-xl font-semibold mb-6 text-slate-800 text-center">Pengumuman</h2>
       </div>
-    </main>
   </div>
 </template>
 

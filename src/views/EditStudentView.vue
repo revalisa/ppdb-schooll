@@ -4,7 +4,6 @@ import { useRoute, useRouter } from 'vue-router'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
-
 const router = useRouter();
 
 const route = useRoute()
@@ -19,16 +18,16 @@ const noTelepon = ref ('')
 const asalSekolah = ref ('')
 
 
-    const saveData = async () => {
-        const student = JSON.stringify({
-            namaLengkap: namaLengkap.value,
-            tempatLahir: tempatLahir.value,
-            tanggalLahir: Date.parse(tanggalLahir.value)/1000,
-            jenisKelamin: jenisKelamin.value,
-            alamat: alamat.value,
-            noTelepon: noTelepon.value,
-            asalSekolah: asalSekolah.value
-    });
+  const saveData = async () => {
+    const student = JSON.stringify({
+        namaLengkap: namaLengkap.value,
+        tempatLahir: tempatLahir.value,
+        tanggalLahir: Date.parse(tanggalLahir.value)/1000,
+        jenisKelamin: jenisKelamin.value,
+        alamat: alamat.value,
+        noTelepon: noTelepon.value,
+        asalSekolah: asalSekolah.value
+    })
 
     const response = await fetch('/api/students/${id}', {
         method:'PUT',
@@ -40,23 +39,24 @@ const asalSekolah = ref ('')
     router.push('/pendaftar')
 }
 
-onMounted(() => {
-    fetch(`/api/students/${id}`)
-        .then(response => response.json())
-        .then(data => {
-            namaLengkap.value = data.namaLengkap
-            tempatLahir.value = data.tempatLahir
-            tanggalLahir.value = new Date(data.tanggalLahir * 1000).toISOString().slice(0, 16)
-            jenisKelamin.value = data.jenisKelamin
-            alamat.value = data.alamat
-            noTelepon.value = data.noTelepon
-            asalSekolah.value = data.asalSekolah
-        })
+ onMounted(() => {
+  fetch(`/api/students/${id}`)
+    .then(response => response.json())
+    .then(data => {
+      // lakukan sesuatu dengan data
+        namaLengkap.value = data.namaLengkap
+          tempatLahir.value = data.tempatLahir
+          tanggalLahir.value =new Date(data.tanggalLahir * 1000).toISOString().slice(0, 16)
+          jenisKelamin.value = data.jenisKelamin
+          alamat.value = data.alamat
+          noTelepon.value = data.noTelepon
+          asalSekolah.value = data.asalSekolah
+    })
 })
-
 </script>
+
 <template>
-    <div class="min-h-screen bg-gray-50">
+ <div class="min-h-screen bg-gray-50">
     <!-- Navbar -->
     <nav class="bg-slate-800 text-white px-8 py-4 shadow-md border-b border-slate-300">
       <div class="max-w-6xl mx-auto flex items-center justify-between">
@@ -77,7 +77,8 @@ onMounted(() => {
       </div>
     </nav>
 
-     <main class="max-w-4xl mx-auto px-8 py-10 bg-white mt-6 shadow rounded">
+    <!-- Main Content Area -->
+    <main class="max-w-4xl mx-auto px-8 py-10 bg-white mt-6 shadow rounded">
       <h1 class="text-2xl font-semibold text-center mb-6">Biodata Siswa Baru</h1>
 
       <form @submit.prevent="saveData" class="space-y-5">

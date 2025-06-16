@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted } from 'vue'
+import { RouterLink } from 'vue-router'
+import { Button } from '@/components/ui/button'
 
 interface Student {
   id: string
@@ -10,16 +12,11 @@ interface Student {
   alamat: string
   noTelepon: string
   asalSekolah: string
-  status: 'diterima' | 'menunggu' | 'ditolak'
 }
 
 const students = ref<Student[]>([])
-const search = ref('')
-const filterStatus = ref<'all' | 'diterima' | 'menunggu' | 'ditolak'>('all')
-
-// Pagination
-const currentPage = ref(1)
-const itemsPerPage = 10
+const searchQuery = ref('')
+const genderFilter = ref('')
 
 const fetchStudents = async () => {
   const response = await fetch('/api/students')
@@ -27,31 +24,27 @@ const fetchStudents = async () => {
   students.value = data
 }
 
-onMounted(fetchStudents)
-
-const filteredStudents = computed(() => {
-  return students.value.filter((student) => {
-    const matchesSearch = student.namaLengkap.toLowerCase().includes(search.value.toLowerCase())
-    const matchesStatus = filterStatus.value === 'all' || student.status === filterStatus.value
-    return matchesSearch && matchesStatus
-  })
+onMounted(() => {
+  fetchStudents()
 })
-
-const paginatedStudents = computed(() => {
-  const start = (currentPage.value - 1) * itemsPerPage
-  const end = start + itemsPerPage
-  return filteredStudents.value.slice(start, end)
-})
-
-const totalPages = computed(() => Math.ceil(filteredStudents.value.length / itemsPerPage))
 
 const removeStudent = async (id: string) => {
-  const confirmed = confirm('Yakin ingin menghapus data ini?')
-  if (!confirmed) return
-
+  if (!confirm('Yakin ingin menghapus siswa ini?')) return
   const response = await fetch(`/api/students/${id}`, { method: 'DELETE' })
   if (response.ok) fetchStudents()
 }
+
+// Filtered and searched list
+const filteredStudents = computed(() => {
+  return students.value.filter((student) => {
+    const matchesSearch = student.namaLengkap
+      .toLowerCase()
+      .includes(searchQuery.value.toLowerCase())
+    const matchesGender =
+      !genderFilter.value || student.jenisKelamin === genderFilter.value
+    return matchesSearch && matchesGender
+  })
+})
 </script>
 
 <template>
@@ -67,7 +60,7 @@ const removeStudent = async (id: string) => {
         </ul>
       </div>
     </nav>
-    <div  class="max-w-4xl mx-auto px-8 py-10 bg-slate-200 mt-6 shadow rounded">
+    <div  class="bg-white rounded shadow p-8 gap-10 items-center">
     <!-- Title -->
     <h1 class="text-2xl font-bold text-center text-gray-800 my-8">Data Siswa</h1>
 
