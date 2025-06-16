@@ -55,120 +55,77 @@ const removeStudent = async (id: string) => {
 </script>
 
 <template>
- <div class="flex min-h-screen bg-gray-100">
-    <aside class="w-64 bg-white border-r shadow-sm p-4">
-      <div class="text-xl font-semibold text-blue-700 mb-6">Admin PPDB</div>
-      <nav class="space-y-2 text-sm text-gray-700">
-        <RouterLink to="/" class="flex items-center space-x-2 hover:text-blue-600">
-          <span>📊</span><span>Dashboard</span>
-        </RouterLink>
-        <RouterLink to="/pendaftar"class="flex items-center space-x-2 hover:text-blue-600">
-          <span>📝</span><span>Data Pendaftar</span>
-        </RouterLink>
-        <RouterLink to="/student"class="flex items-center space-x-2 hover:text-blue-600">
-          <span>📂</span><span>Tambahkan Siswa</span>
-        </RouterLink>
-       <RouterLink to="/about" class="flex items-center space-x-2 hover:text-blue-600">
-          <span>📣</span><span>Pengumuman</span>
-        </RouterLink>
-      </nav>
-    </aside>
+  <div class="min-h-screen bg-gray-100">
+    <!-- Navbar -->
+    <nav class="bg-slate-800 text-white px-8 py-4 shadow-md">
+      <div class="max-w-6xl mx-auto flex items-center justify-between">
+        <ul class="flex gap-6 text-sm sm:text-base font-medium">
+          <li><RouterLink to="/" class="hover:text-slate-300">Beranda</RouterLink></li>
+          <li><RouterLink to="/pendaftar" class="hover:text-slate-300">Data Pendaftar</RouterLink></li>
+          <li><RouterLink to="/student" class="hover:text-slate-300">Tambah Siswa</RouterLink></li>
+          <li><RouterLink to="/about" class="hover:text-slate-300">Pengumuman</RouterLink></li>
+        </ul>
+      </div>
+    </nav>
+    <div  class="max-w-4xl mx-auto px-8 py-10 bg-slate-200 mt-6 shadow rounded">
+    <!-- Title -->
+    <h1 class="text-2xl font-bold text-center text-gray-800 my-8">Data Siswa</h1>
 
-  <main class="p-6">
-    <h1 class="text-2xl font-bold text-gray-800 mb-6 text-center">📋 Data Pendaftar</h1>
-
-    <!-- Filter & Search -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-3">
+    <!-- Search & Filter -->
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between gap-4 mb-6">
       <input
-        v-model="search"
+        v-model="searchQuery"
         type="text"
         placeholder="Cari berdasarkan nama..."
-        class="border border-gray-300 rounded px-3 py-2 w-full md:w-1/3 text-sm"
+        class="w-full sm:w-1/2 px-4 py-2 rounded border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
-
       <select
-        v-model="filterStatus"
-        class="border border-gray-300 rounded px-3 py-2 text-sm"
+        v-model="genderFilter"
+        class="w-full sm:w-1/4 px-4 py-2 rounded border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
       >
-        <option value="all">Semua JK</option>
-        <option value="laki-laki">laki-laki</option>
-        <option value="perempuan">Perempuan</option>
+        <option value="">Semua Jenis Kelamin</option>
+        <option value="Laki-laki">Laki-laki</option>
+        <option value="Perempuan">Perempuan</option>
       </select>
     </div>
 
-    <!-- Table -->
-    <div class="overflow-auto bg-white rounded shadow">
-      <table class="min-w-full text-sm text-left border">
-        <thead class="bg-gray-100 text-gray-700">
-          <tr>
-            <th class="px-4 py-2 border">Nama Lengkap</th>
-            <th class="px-4 py-2 border">TTL</th>
-            <th class="px-4 py-2 border">JK</th>
-            <th class="px-4 py-2 border">Asal Sekolah</th>
-            <th class="px-4 py-2 border">Status</th>
-            <th class="px-4 py-2 border">Aksi</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="student in paginatedStudents" :key="student.id" class="hover:bg-gray-50">
-            <td class="px-4 py-2 border">{{ student.namaLengkap }}</td>
-            <td class="px-4 py-2 border">{{ student.tempatLahir }}, {{ new Date(Number(student.tanggalLahir) * 1000).toLocaleDateString('id-ID') }}</td>
-            <td class="px-4 py-2 border">{{ student.jenisKelamin }}</td>
-            <td class="px-4 py-2 border">{{ student.asalSekolah }}</td>
-            <td class="px-4 py-2 border">
-              <span
-                class="px-2 py-1 rounded-full text-xs font-semibold"
-                :class="{
-                  'bg-green-100 text-green-800': student.status === 'diterima',
-                  'bg-yellow-100 text-yellow-800': student.status === 'menunggu',
-                  'bg-red-100 text-red-800': student.status === 'ditolak',
-                }"
-              >
-                {{ student.status }}
-              </span>
-            </td>
-            <td class="px-4 py-2 border space-x-2">
-              <RouterLink
-                :to="`/student/${student.id}`"
-                class="text-blue-600 hover:underline"
-              >
-                Edit
-              </RouterLink>
-              <button
-                @click="removeStudent(student.id)"
-                class="text-red-600 hover:underline"
-              >
-                Hapus
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+    <!-- Student Cards -->
+    <div class="max-w-6xl mx-auto px-4 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+      <div
+        v-for="student in filteredStudents"
+        :key="student.id"
+        class="bg-white rounded-lg shadow-md p-6 space-y-2 hover:shadow-lg transition"
+      >
+        <h2 class="text-lg font-semibold text-slate-800">{{ student.namaLengkap }}</h2>
+        <p><span class="font-medium">Tempat Lahir:</span> {{ student.tempatLahir }}</p>
+        <p><span class="font-medium">Tanggal Lahir:</span> {{ new Date(Number(student.tanggalLahir) * 1000).toLocaleDateString() }}</p>
+        <p><span class="font-medium">Jenis Kelamin:</span> {{ student.jenisKelamin }}</p>
+        <p><span class="font-medium">Alamat:</span> {{ student.alamat }}</p>
+        <p><span class="font-medium">No Telepon:</span> {{ student.noTelepon }}</p>
+        <p><span class="font-medium">Asal Sekolah:</span> {{ student.asalSekolah }}</p>
 
-      <!-- Empty state -->
-      <div v-if="paginatedStudents.length === 0" class="p-4 text-center text-gray-500">
-        Tidak ada data pendaftar.
+        <!-- Action Buttons -->
+        <div class="flex justify-between items-center mt-4">
+          <RouterLink
+            :to="`/student/${student.id}`"
+            class="text-blue-600 hover:underline font-medium"
+          >
+            Edit
+          </RouterLink>
+          <Button
+            class="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded"
+            @click="removeStudent(student.id)"
+          >
+            Hapus
+          </Button>
+        </div>
       </div>
     </div>
 
-    <!-- Pagination -->
-    <div class="flex justify-center items-center mt-6 space-x-2">
-      <button
-        @click="currentPage--"
-        :disabled="currentPage === 1"
-        class="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-      >
-        &laquo;
-      </button>
-      <span class="text-sm font-medium">Halaman {{ currentPage }} dari {{ totalPages }}</span>
-      <button
-        @click="currentPage++"
-        :disabled="currentPage === totalPages"
-        class="px-3 py-1 bg-gray-200 rounded disabled:opacity-50"
-      >
-        &raquo;
-      </button>
+    <!-- Empty State -->
+    <div v-if="filteredStudents.length === 0" class="text-center text-gray-500 mt-12 text-lg">
+      Tidak ada data yang cocok.
     </div>
-  </main>
-</div>
+  </div>
+  </div>
 </template>
