@@ -60,7 +60,7 @@ const filteredStudents = computed(() => {
         </ul>
       </div>
     </nav>
-    <div  class="max-w-4xl mx-auto px-8 py-10 bg-slate-200 mt-6 shadow rounded">
+    <div  class="bg-white rounded shadow p-8 gap-10 items-center">
     <!-- Title -->
     <h1 class="text-2xl font-bold text-center text-gray-800 my-8">Data Siswa</h1>
 
