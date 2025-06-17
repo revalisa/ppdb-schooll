@@ -37,8 +37,7 @@ const asalSekolah = ref ('')
 
 </script>
 <template>
-   <div class="min-h-screen bg-gray-50">
-    <!-- Navbar -->
+ <div class="min-h-screen bg-gray-50">
     <nav class="bg-slate-800 text-white px-8 py-4 shadow-md border-b border-slate-300">
       <div class="max-w-6xl mx-auto flex items-center justify-between">
         <ul class="flex gap-8 text-base">
@@ -57,7 +56,8 @@ const asalSekolah = ref ('')
         </ul>
       </div>
     </nav>
-        <main class="max-w-4xl mx-auto px-8 py-10 bg-white mt-6 shadow rounded">
+    <!-- Main Content Area -->
+    <main class="max-w-4xl mx-auto px-8 py-10 bg-white mt-6 shadow rounded">
       <h1 class="text-2xl font-semibold text-center mb-6">Biodata Siswa Baru</h1>
 
       <form @submit.prevent="saveData" class="space-y-5">
@@ -93,7 +93,7 @@ const asalSekolah = ref ('')
         <div class="text-center">
           <Button type="submit" class="mt-4">Kirim</Button>
         </div>
-    </form>
+      </form>
     </main>
   </div>
 </template>
