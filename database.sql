@@ -1,15 +1,14 @@
-PRAGMA defer_foreign_keys=TRUE;
-CREATE TABLE students (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    namaLengkap TEXT NOT NULL,
-    tempatLahir TEXT NOT NULL,
-    tanggalLahir DATE NOT NULL,
-    jenisKelamin TEXT NOT NULL,
-    alamat TEXT NOT NULL,
-    noTelepon TEXT NOT NULL,
-    asalSekolah TEXT NOT NULL
+-- Buat tabel events
+CREATE TABLE IF NOT EXISTS events (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  judul TEXT NOT NULL,
+  isi TEXT NOT NULL,
+  tanggal TEXT NOT NULL DEFAULT CURRENT_DATE,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
-INSERT INTO students VALUES(1,'Randi Satya','Malang','2004-05-10','L','Malang','081334138379','SMK 1 Malang');
-INSERT INTO students VALUES(2,'Siti Revalisa','Pasuruan','2003-07-15','P','Pancur - Lumbang - Pasuruan','081334138374','SMK 1 Pasuruan');
-DELETE FROM sqlite_sequence;
-INSERT INTO sqlite_sequence VALUES('students',2);
+
+-- Sisipkan data awal dengan menyebutkan kolom yang diisi
+INSERT INTO events (judul, isi, tanggal) VALUES
+  ('Pembukaan PPDB Online 2025', 'Pendaftaran dibuka mulai 1 Juni hingga 15 Juni 2025 secara online.', '2025-06-01'),
+  ('Pengumuman Hasil Seleksi Tahap 1', 'Hasil seleksi tahap pertama akan diumumkan pada 18 Juni 2025.', '2025-06-18'),
+  ('Daftar Ulang Tahap 1', 'Peserta yang lolos wajib daftar ulang pada 19-21 Juni 2025.', '2025-06-19');
