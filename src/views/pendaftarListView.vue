@@ -62,7 +62,7 @@ const filteredStudents = computed(() => {
     </nav>
     <div  class="bg-white rounded shadow p-8 gap-10 items-center">
     <!-- Title -->
-    <h1 class="text-2xl font-bold text-center text-gray-800 my-8">Data Siswa</h1>
+    <h1 class="text-4xl font-bold text-center text-gray-800 my-8">Data Siswa</h1>
 
     <!-- Search & Filter -->
     <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between gap-4 mb-6">
