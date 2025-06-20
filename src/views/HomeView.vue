@@ -1,7 +1,37 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { ref, onMounted, computed } from 'vue'
+import { Button } from '@/components/ui/button'
 
+interface Event {
+  id: string
+  judul: string
+  isi: string
+  tanggal: string
+}
+
+const events = ref<Event[]>([])
+const searchQuery = ref('')
+
+const fetchEvents= async () => {
+  const response = await fetch('/api/events')
+  const data = await response.json()
+  events.value = data
+}
+
+onMounted(() => {
+  fetchSEvents()
+})
+
+//filtered and searched list
+const filteredEvents = computed(() => {
+  return events.value.filter((event) => {
+    const matchesSearch = event.judul
+    .toLowerCase()
+    .includes(searchQuery.value.toLowerCase())
+    return matchesSearch 
+  })
+})
 </script>
 
 
@@ -38,45 +68,6 @@ import { ref, onMounted, computed } from 'vue'
         <!-- Right Image -->
         <div class="flex justify-center">
           <img src="/utama.svg" alt="Gambar PPDB" class="w-80 h-auto" />
-        </div>
-      </div>
-
-      <!-- Pengumuman Section -->
-      <div class="bg-white rounded shadow p-8 mt-10">
-        <h1 class="text-4xl font-bold text-center text-gray-800 my-8">📢 Event</h1>
-
-        <!-- Search Box -->
-        <div class="max-w-6xl mx-auto px-4 mb-6">
-          <input
-            v-model="searchQuery"
-            type="text"
-            placeholder="Cari Pengumuman..."
-            class="w-full sm:w-1/2 px-4 py-2 rounded border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-        </div>
-
-        <!-- Event Cards -->
-        <div class="max-w-6xl mx-auto px-4 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-          <div
-            v-for="event in filteredEvents"
-            :key="event.id"
-            class="bg-white rounded-lg shadow-md p-6 space-y-2 hover:shadow-lg transition"
-          >
-            <h2 class="text-lg font-semibold text-slate-800">{{ event.judul }}</h2>
-            <p><span class="font-medium">Isi:</span> {{ event.isi }}</p>
-            <p>
-              <span class="font-medium">Tanggal:</span>
-              {{ new Date(event.tanggal).toLocaleDateString('id-ID') }}
-            </p>
-              <div>
-                <RouterLink :to="'/event'" class="text-blue-600 hover:underline font-medium">Tambah Event</RouterLink>
-              </div>
-          </div>
-        </div>
-
-        <!-- Empty State -->
-        <div v-if="filteredEvents.length === 0" class="text-center text-gray-500 mt-12 text-lg">
-          Tidak ada data yang cocok.
         </div>
       </div>
     </main>

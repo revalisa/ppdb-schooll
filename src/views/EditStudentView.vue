@@ -111,7 +111,7 @@ const asalSekolah = ref ('')
           <Input type="text" v-model="asalSekolah" class="w-full" />
         </div>
         <div class="text-center">
-          <Button type="submit" @click="() => console.log('update')" class="mt-4">Update</Button>
+          <Button type="submit">Update</Button>
         </div>
       </form>
     </main>
