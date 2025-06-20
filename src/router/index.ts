@@ -24,10 +24,15 @@ const router = createRouter({
       name: 'pendaftarList',
       component: () => import('../views/PendaftarListView.vue'),
     },
-     {
+    {
       path: '/student/:id',
       name: 'editStudent',
       component: () => import('../views/EditStudentView.vue'),
+    },
+    {
+      path: '/event',
+      name: 'addevent',
+      component: () => import('../views/AddEventView.vue'),
     },
     {
       path: '/about',

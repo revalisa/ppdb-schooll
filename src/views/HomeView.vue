@@ -54,13 +54,6 @@ import { ref, onMounted, computed } from 'vue'
             class="w-full sm:w-1/2 px-4 py-2 rounded border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
         </div>
-      <div class="max-w-6xl mx-auto px-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"> 
-        <div v-for="event in filteredEvent" :key="event.id" class="bg-white rounded-lg shadow-md p-6 space-y-2 hover:shadow-lg transition">
-          <h2 class="text-lg font-semibold text-slate-800">{{ e}}
-      
-        <div>
-            <RouterLink :to="'/event'" class="text-blue-600 hover:underline font-medium">Tambah Event</RouterLink>
-        </div>
 
         <!-- Event Cards -->
         <div class="max-w-6xl mx-auto px-4 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
@@ -75,6 +68,9 @@ import { ref, onMounted, computed } from 'vue'
               <span class="font-medium">Tanggal:</span>
               {{ new Date(event.tanggal).toLocaleDateString('id-ID') }}
             </p>
+              <div>
+                <RouterLink :to="'/event'" class="text-blue-600 hover:underline font-medium">Tambah Event</RouterLink>
+              </div>
           </div>
         </div>
 
