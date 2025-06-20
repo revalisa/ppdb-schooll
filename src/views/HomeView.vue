@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
 import { RouterLink } from 'vue-router'
+import { ref, onMounted, computed } from 'vue'
+
 </script>
+
+
 
 <template>
   <div class="min-h-screen bg-gray-50">
@@ -9,27 +12,18 @@ import { RouterLink } from 'vue-router'
     <nav class="bg-slate-800 text-white px-8 py-4 shadow-md border-b border-slate-300">
       <div class="max-w-6xl mx-auto flex items-center justify-between">
         <ul class="flex gap-8 text-base">
-          <li>
-            <RouterLink to="/" class="hover:text-slate-300">Beranda</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/pendaftar" class="hover:text-slate-300">Data Pendaftar</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/student" class="hover:text-slate-300">Tambah Siswa</RouterLink>
-          </li>
-          <li>
-            <RouterLink to="/about" class="hover:text-slate-300">Pengumuman</RouterLink>
-          </li>
+          <li><RouterLink to="/" class="hover:text-slate-300">Beranda</RouterLink></li>
+          <li><RouterLink to="/pendaftar" class="hover:text-slate-300">Data Pendaftar</RouterLink></li>
+          <li><RouterLink to="/student" class="hover:text-slate-300">Tambah Siswa</RouterLink></li>
+          <li><RouterLink to="/about" class="hover:text-slate-300">Pengumuman</RouterLink></li>
         </ul>
       </div>
     </nav>
 
-    <!-- Main Content -->
+    <!-- Hero Section -->
     <main class="min-h-screen bg-gray-50">
-      <!-- Header and Illustration -->
       <div class="bg-white rounded shadow p-8 grid md:grid-cols-2 gap-10 items-center">
-        <!-- Left Column: Text -->
+        <!-- Left Text -->
         <div>
           <h1 class="text-3xl font-bold text-slate-800 mb-4">
             PENERIMAAN PESERTA DIDIK BARU (PPDB)
@@ -41,29 +35,52 @@ import { RouterLink } from 'vue-router'
             <li>Informasi pendaftar ditampilkan secara real-time dan bisa diperbarui kapan saja.</li>
           </ul>
         </div>
-
-        <!-- Right Column: Image -->
+        <!-- Right Image -->
         <div class="flex justify-center">
           <img src="/utama.svg" alt="Gambar PPDB" class="w-80 h-auto" />
         </div>
       </div>
 
-      <!-- Statistik Pendaftaran -->
-      <div class="mt-10 bg-white rounded-lg shadow p-6">
-        <h2 class="text-xl font-semibold mb-6 text-slate-800 text-center">Statistik Pendaftaran</h2>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="bg-slate-200 p-6 rounded-lg text-center shadow">
-            <h3 class="text-3xl font-bold text-slate-800">120</h3>
-            <p class="mt-2">Total Pendaftar</p>
+      <!-- Pengumuman Section -->
+      <div class="bg-white rounded shadow p-8 mt-10">
+        <h1 class="text-4xl font-bold text-center text-gray-800 my-8">📢 Event</h1>
+
+        <!-- Search Box -->
+        <div class="max-w-6xl mx-auto px-4 mb-6">
+          <input
+            v-model="searchQuery"
+            type="text"
+            placeholder="Cari Pengumuman..."
+            class="w-full sm:w-1/2 px-4 py-2 rounded border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+      <div class="max-w-6xl mx-auto px-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"> 
+        <div v-for="event in filteredEvent" :key="event.id" class="bg-white rounded-lg shadow-md p-6 space-y-2 hover:shadow-lg transition">
+          <h2 class="text-lg font-semibold text-slate-800">{{ e}}
+      
+        <div>
+            <RouterLink :to="'/event'" class="text-blue-600 hover:underline font-medium">Tambah Event</RouterLink>
+        </div>
+
+        <!-- Event Cards -->
+        <div class="max-w-6xl mx-auto px-4 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            v-for="event in filteredEvents"
+            :key="event.id"
+            class="bg-white rounded-lg shadow-md p-6 space-y-2 hover:shadow-lg transition"
+          >
+            <h2 class="text-lg font-semibold text-slate-800">{{ event.judul }}</h2>
+            <p><span class="font-medium">Isi:</span> {{ event.isi }}</p>
+            <p>
+              <span class="font-medium">Tanggal:</span>
+              {{ new Date(event.tanggal).toLocaleDateString('id-ID') }}
+            </p>
           </div>
-          <div class="bg-green-300 p-6 rounded-lg text-center shadow">
-            <h3 class="text-3xl font-bold text-green-900">80</h3>
-            <p class="mt-2">Diverifikasi</p>
-          </div>
-          <div class="bg-red-300 p-6 rounded-lg text-center shadow">
-            <h3 class="text-3xl font-bold text-red-900">40</h3>
-            <p class="mt-2">Belum Verifikasi</p>
-          </div>
+        </div>
+
+        <!-- Empty State -->
+        <div v-if="filteredEvents.length === 0" class="text-center text-gray-500 mt-12 text-lg">
+          Tidak ada data yang cocok.
         </div>
       </div>
     </main>

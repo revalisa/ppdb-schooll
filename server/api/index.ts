@@ -47,4 +47,18 @@ app.delete('/api/students/:id', async (c) => {
 
 app.get('*', (c) => c.env.ASSETS.fetch(c.req.raw))
 
+//untuk pengumuman
+app.get('/api/events', async (c) => {
+  const result = await c.env.DB.prepare("SELECT * FROM events").all()
+  return c.json(result)
+})
+
+app.post('/api/events', async (c) => {
+   const newId = crypto.randomUUID()
+    const input = await c.req.json<any>()
+    const query = `INSERT INTO events (judul,isi,tanggal) values ("${input.judul}","${input.isi}","${input.tanggal}")`
+    const newEvent= await c.env.DB.exec(query)
+    return c.json(newEvent)
+})
+
 export default app;
