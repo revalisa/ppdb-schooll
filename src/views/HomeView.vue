@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted} from 'vue'
 import { Button } from '@/components/ui/button'
+
 
 interface Event {
   id: string
@@ -11,27 +12,25 @@ interface Event {
 }
 
 const events = ref<Event[]>([])
-const searchQuery = ref('')
 
-const fetchEvents= async () => {
+const fetchEvents = async () => {
   const response = await fetch('/api/events')
   const data = await response.json()
   events.value = data
 }
 
 onMounted(() => {
-  fetchSEvents()
+  fetchEvents()
 })
 
-//filtered and searched list
-const filteredEvents = computed(() => {
-  return events.value.filter((event) => {
-    const matchesSearch = event.judul
-    .toLowerCase()
-    .includes(searchQuery.value.toLowerCase())
-    return matchesSearch 
+const removeEvent = async (id: string) => {
+  const response = await fetch(`/api/events/${id}`, {
+    method: 'DELETE',
   })
-})
+  if (response.ok) {
+    fetchEvents()
+  }
+}
 </script>
 
 
@@ -69,6 +68,34 @@ const filteredEvents = computed(() => {
         <div class="flex justify-center">
           <img src="/utama.svg" alt="Gambar PPDB" class="w-80 h-auto" />
         </div>
+      </div>
+
+      <!-- //event -->
+      <div  class="bg-white rounded shadow p-8 gap-10 items-center mt-6">
+        <h1 class="text-3xl font-bold text-slate-800 mb-4">
+          Pengumuman Kegiatan
+        </h1>
+          <div>
+            <RouterLink to="/event">Buat Event</RouterLink>
+          </div>
+            <div>
+              <ul>
+                <li v-for="event in events" :key="event.id">
+                <h2 class="text-lg font-semibold text-slate-800">{{ event.judul }}</h2>
+                <p><span class="font-medium">Isi :</span>{{ event.isi }}</p>
+                <p><span class="font-medium">Tanggal :</span>{{ event.tanggal}}</p>
+              <div>
+                <RouterLink :to="`/event/${event.id}`" class="text-blue-600 hover:underline font-medium">
+                  Edit
+                </RouterLink>
+                <Button class="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded"
+                @click="removeEvent(event.id)">
+                  Hapus
+                </Button>
+              </div>
+            </li>
+          </ul>
+          </div>
       </div>
     </main>
   </div>
