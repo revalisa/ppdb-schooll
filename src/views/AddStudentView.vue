@@ -36,6 +36,7 @@ const asalSekolah = ref ('')
 }
 
 </script>
+
 <template>
  <div class="min-h-screen bg-gray-50">
     <nav class="bg-slate-800 text-white px-8 py-4 shadow-md border-b border-slate-300">
