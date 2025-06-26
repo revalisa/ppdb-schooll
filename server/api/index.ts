@@ -46,7 +46,7 @@ app.delete('/api/students/:id', async (c) => {
 })
 
 //event 
-app.get('api/events', async (c) => {
+app.get('/api/events', async (c) => {
     let { results} = await c.env.DB.prepare('SELECT * FROM events'). all();
     return c.json(results)
 })
@@ -54,7 +54,7 @@ app.get('api/events', async (c) => {
 app.post('/api/events', async(c) => {
    const newId = crypto.randomUUID()
     const input = await c.req.json<any>()
-    const query = `INSERT INTO events (judul,isi,tanggal) values ( "${input.judul}","${input.isi}","${input.tanggal}")`
+    const query = `INSERT INTO events (id,judul,isi,tanggal) values ( "${newId}","${input.judul}","${input.isi}","${input.tanggal}")`
     const newEvent = await c.env.DB.exec(query)
     return c.json(newEvent)
 })
