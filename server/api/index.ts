@@ -15,7 +15,7 @@ app.get('/api/students', async (c) => {
 app.post('/api/students', async (c) => {
     const newId = crypto.randomUUID()
     const input = await c.req.json<any>()
-    const query = `INSERT INTO students (namaLengkap,tempatLahir,tanggalLahir,jenisKelamin,alamat,noTelepon,asalSekolah) values ("${input.namaLengkap}","${input.tempatLahir}","${input.tanggalLahir}","${input.jenisKelamin}","${input.alamat}","${input.noTelepon}","${input.asalSekolah}")`
+    const query = `INSERT INTO students (id,namaLengkap,tempatLahir,tanggalLahir,jenisKelamin,alamat,noTelepon,asalSekolah) values ("${newId}","${input.namaLengkap}","${input.tempatLahir}","${input.tanggalLahir}","${input.jenisKelamin}","${input.alamat}","${input.noTelepon}","${input.asalSekolah}")`
     const newStudent= await c.env.DB.exec(query)
     return c.json(newStudent)
 })

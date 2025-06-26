@@ -1,13 +1,13 @@
--- -- Hapus tabel events jika ada
-DROP TABLE IF EXISTS events;
+-- -- -- Hapus tabel events jika ada
+-- DROP TABLE IF EXISTS events;
 
--- -- -- Buat ulang tabel events
-CREATE TABLE events (
-  id TEXT PRIMARY KEY,
-  judul TEXT,
-  isi TEXT,
-  tanggal INTEGER
-);
+-- -- -- -- Buat ulang tabel events
+-- CREATE TABLE events (
+--   id TEXT PRIMARY KEY,
+--   judul TEXT,
+--   isi TEXT,
+--   tanggal INTEGER
+-- );
 
 -- INSERT INTO events (
 --   id,
@@ -22,19 +22,19 @@ CREATE TABLE events (
 -- );
 
 -- -- -- Hapus tabel students jika ada
--- DROP TABLE IF EXISTS students;
+DROP TABLE IF EXISTS students;
 
 -- -- Buat ulang tabel students
--- CREATE TABLE students (
---   id TEXT PRIMARY KEY,
---   namaLengkap TEXT NOT NULL,
---   tempatLahir TEXT,
---   tanggalLahir INTEGER,
---   jenisKelamin TEXT,
---   alamat TEXT,
---   noTelepon TEXT,
---   asalSekolah TEXT
--- );
+CREATE TABLE students (
+  id TEXT PRIMARY KEY,
+  namaLengkap TEXT NOT NULL,
+  tempatLahir TEXT,
+  tanggalLahir INTEGER,
+  jenisKelamin TEXT,
+  alamat TEXT,
+  noTelepon TEXT,
+  asalSekolah TEXT
+);
 
 -- INSERT INTO students (
 --   id,
