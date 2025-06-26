@@ -86,7 +86,7 @@ const removeEvent = async (id: string) => {
           <!-- event Cards -->
             <div class="max-w-6xl mx-auto px-4 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                 <div v-for="event in events" :key="event.id" class="bg-white rounded-lg shadow-md p-6 space-y-2 hover:shadow-lg transition">
-                <h2 class="text-lg font-semibold text-slate-800">{{ event.judul }}</h2>
+                <h3 class="text-lg font-semibold text-slate-800">{{ event.judul }}</h3>
                 <p><span class="font-medium">Isi :</span>{{ event.isi }}</p>
                 <p><span class="font-medium">Tanggal :</span>{{  new Date(Number(event.tanggal) * 1000).toLocaleDateString()}}</p>
                 <div>
