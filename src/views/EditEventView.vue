@@ -29,6 +29,7 @@ const saveData = async () => {
     router.push('/')
 }
 
+//ambil data dari server saat komponen muncul.
 onMounted(() => {
     fetch(`/api/events/${id}`)
         .then(response => response.json())
