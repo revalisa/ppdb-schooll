@@ -14,8 +14,8 @@
 	"d1_databases": [
     {
       "binding": "DB",
-      "database_name": "ppdb",
-      "database_id": "ca5ba9ab-d4b1-44fd-acdc-458a95ba5e11"     
+      "database_name": "ppdbSchool-db",
+      "database_id": "e7fab00f-55d3-43df-974d-60b79b529637"     
     }
   ],
 	"observability": {
