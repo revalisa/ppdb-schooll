@@ -72,30 +72,35 @@ const removeEvent = async (id: string) => {
 
       <!-- //event -->
       <div  class="bg-white rounded shadow p-8 gap-10 items-center mt-6">
-        <h1 class="text-3xl font-bold text-slate-800 mb-4">
+        <h1 class="text-3xl font-bold text-slate-800 mb-6 text-center">
           Pengumuman Kegiatan
         </h1>
-          <div>
-            <RouterLink to="/event">Buat Event</RouterLink>
+          <div class="mb-6 text-right">
+            <RouterLink
+              to="/event"
+              class="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700 transition duration-200"
+            >
+              + Buat Event
+            </RouterLink>
           </div>
-            <div>
-              <ul>
-                <li v-for="event in events" :key="event.id">
+          <!-- event Cards -->
+            <div class="max-w-6xl mx-auto px-4 grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                <div v-for="event in events" :key="event.id" class="bg-white rounded-lg shadow-md p-6 space-y-2 hover:shadow-lg transition">
                 <h2 class="text-lg font-semibold text-slate-800">{{ event.judul }}</h2>
                 <p><span class="font-medium">Isi :</span>{{ event.isi }}</p>
-                <p><span class="font-medium">Tanggal :</span>{{ event.tanggal}}</p>
-              <div>
-                <RouterLink :to="`/event/${event.id}`" class="text-blue-600 hover:underline font-medium">
-                  Edit
-                </RouterLink>
-                <Button class="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded"
-                @click="removeEvent(event.id)">
-                  Hapus
-                </Button>
-              </div>
-            </li>
-          </ul>
-          </div>
+                <p><span class="font-medium">Tanggal :</span>{{  new Date(Number(event.tanggal) * 1000).toLocaleDateString()}}</p>
+                <div>
+                  <RouterLink :to="`/event/${event.id}`" class="text-blue-600 hover:underline font-medium">
+                    Edit
+                  </RouterLink>
+                  <Button class="bg-red-600 text-white hover:bg-red-700 px-4 py-2 rounded"
+                  @click="removeEvent(event.id)">
+                    Hapus
+                  </Button>
+                </div>
+                </div>
+            </div>
+            
       </div>
     </main>
   </div>

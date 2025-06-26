@@ -34,8 +34,8 @@ onMounted(() => {
         .then(response => response.json())
         .then(data => {
             judul.value = data.judul
-            isi.value = data.isi
-            tanggal.value = new Date(data.tanggal * 1000).toISOString().slice(0, 16)
+            isi.value = data.isi,
+            tanggal.value = new Date(data.tanggal * 1000).toISOString().slice(0, 10)//date
         })
 })
 
@@ -75,7 +75,7 @@ onMounted(() => {
        </div>
         <div>
          <label class="block mb-1 font-medium">Tanggal</label>
-          <Input type="datetime-local" v-model="tanggal" class="w-full" />
+          <Input type="date" v-model="tanggal" class="w-full" />
         </div>
         <div class="text-center">
           <Button type="submit" class="mt-4">Kirim</Button>

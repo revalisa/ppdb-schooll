@@ -14,7 +14,7 @@ const saveData = async () => {
  const newEvent = JSON.stringify({
   judul  : judul.value,
   isi    : isi.value,
-  tanggal: tanggal.value
+  tanggal: Date.parse(tanggal.value)/1000,
  })
  
   const response = await fetch('/api/events', {
@@ -54,7 +54,7 @@ const saveData = async () => {
         </div>
         <div>
           <label class="block mb-1 font-medium">Tanggal</label>
-          <Input type="datetime-local" v-model="tanggal" class="w-full" />
+          <Input type="date" v-model="tanggal" class="w-full" />
         </div>
         <div class="text-center">
           <Button type="submit" class="mt-4">Kirim</Button>

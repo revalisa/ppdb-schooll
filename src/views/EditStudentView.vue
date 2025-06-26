@@ -1,14 +1,23 @@
 <script setup lang="ts">
+// //ref digunakan untuk membuat variabel reaktif.
+// onMounted menjalankan fungsi saat komponen selesai dimuat.
+// useRoute untuk mengambil parameter route (dalam hal ini id).
+// useRouter untuk navigasi halaman.
+// Komponen Button dan Input diimpor untuk digunakan dalam tampilan UI (tidak ditampilkan di skrip ini, hanya bagian logika).
+
 import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 
+//Digunakan untuk melakukan navigasi antar halaman
 const router = useRouter();
-
+// Mengakses informasi rute saat ini, termasuk:
 const route = useRoute()
+// Ini mengambil nilai id dari URL yang sudah ditentukan di rute.
 const id = route.params.id
 
+// membuat variabel untuk menyimpan data
 const namaLengkap = ref('')
 const tempatLahir = ref('')
 const tanggalLahir = ref('')
@@ -17,8 +26,8 @@ const alamat = ref('')
 const noTelepon = ref('')
 const asalSekolah = ref('')
 
-const saveData = async () => {
-  const student = JSON.stringify({
+const saveData = async () => { //untuk menyimpan datasiswa
+  const student = JSON.stringify({ //mengubah objek menjadi string json
     namaLengkap: namaLengkap.value,
     tempatLahir: tempatLahir.value,
     tanggalLahir: Date.parse(tanggalLahir.value) / 1000,  // Mengonversi ke UNIX timestamp
@@ -28,22 +37,28 @@ const saveData = async () => {
     asalSekolah: asalSekolah.value
   })
 
+  //Mengirim data ke endpoint API sesuai id.
     const response = await fetch(`/api/students/${id}`, {
       method: 'PUT',
       body: student,
     })
 
+    //digunakan kalau kamu ingin tahu apakah berhasil atau gagal, atau menampilkan notifikasi.
     const data = await response.json();
-    router.push('/pendaftar');
+    router.push('/pendaftar'); //
 }
 
+//mengambil data siswa dari server berdasarkan id, 
+// lalu mengisi form edit siswa.
 onMounted(() => {
+  //Mengambil data dari server melalui endpoint API.
   fetch(`/api/students/${id}`)
+  //Mengubah response HTTP menjadi objek JSON agar bisa digunakan.
     .then(response => response.json())
     .then(data => {
       namaLengkap.value = data.namaLengkap;
       tempatLahir.value = data.tempatLahir;
-      tanggalLahir.value = new Date(data.tanggalLahir * 1000).toISOString().slice(0, 16); // Format datetime-local
+      tanggalLahir.value = new Date(data.tanggalLahir * 1000).toISOString().slice(0, 10); // Format date
       jenisKelamin.value = data.jenisKelamin;
       alamat.value = data.alamat;
       noTelepon.value = data.noTelepon;
@@ -87,7 +102,7 @@ onMounted(() => {
        </div>
         <div>
          <label class="block mb-1 font-medium">Tanggal Lahir</label>
-          <Input type="datetime-local" v-model="tanggalLahir" class="w-full" />
+          <Input type="date" v-model="tanggalLahir" class="w-full" />
         </div>  
         <div>
          <label class="block mb-1 font-medium">Jenis Kelamin</label>

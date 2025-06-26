@@ -72,7 +72,7 @@ const asalSekolah = ref ('')
        </div>
         <div>
          <label class="block mb-1 font-medium">Tanggal Lahir</label>
-          <Input type="datetime-local" v-model="tanggalLahir" class="w-full" />
+          <Input type="date" v-model="tanggalLahir" class="w-full" />
         </div>  
         <div>
          <label class="block mb-1 font-medium">Jenis Kelamin</label>
